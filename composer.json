@@ -1,14 +1,18 @@
 {
-    "name": "jovanialferez/yii2-s3",
+    "name": "ThePeach/yii2-s3",
     "type": "library",
     "description": "An Amazon S3Client wrapper as Yii2 component",
     "keywords": ["yii2-s3","yii2s3", "s3","yii2"],
-    "homepage": "https://github.com/jovanialferez/yii2-s3",
+    "homepage": "https://github.com/ThePeach/yii2-s3",
     "license": "MIT",
     "authors": [
         {
             "name": "Jovani Fernandez Alferez",
             "email": "vojalf@gmail.com"
+        },
+        {
+            "name": "Matteo 'Peach' Pescarin",
+            "email": "nospam@smartart.it"
         }
     ],
     "require": {
@@ -16,6 +20,6 @@
         "aws/aws-sdk-php": "2.6.*"
     },
     "autoload": {
-        "psr-4": { "jovanialferez\\yii2s3\\": "" }
+        "psr-4": { "ThePeach\\yii2s3\\": "" }
     }
 }

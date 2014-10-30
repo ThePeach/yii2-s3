@@ -3,7 +3,7 @@
  * @author: Jovani F. Alferez <vojalf@gmail.com>
  */
 
-namespace jovanialferez\yii2s3;
+namespace ThePeach\yii2s3;
 
 /**
  * A Yii2-compatible component wrapper for Aws\S3\S3Client.
@@ -69,9 +69,58 @@ class AmazonS3 extends \yii\base\Component
                     'ContentType' => \yii\helpers\FileHelper::getMimeType($filePath),
                 ]);
 
-            return $result->get('ObjectURL');
         } catch (\Exception $e) {
             return false;
         }
+        
+        return $result->get('ObjectURL');
+    }
+
+    /**
+     * Deletes a file from the S3 bucket.
+     *
+     * @param string $fileName Filename to delete from the bucket. May include directories.
+     * @return bool if the delete operation completed successfully.
+     */
+    public function deleteFile($fileName, $bucket = false)
+    {
+        if (!$bucket) {
+            $bucket = $this->bucket;
+        }
+
+        try {
+            $result = $this->_client->deleteObject([
+                    'Bucket' => $bucket,
+                    'Key' => $fileName
+                ]);
+
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        // delete is an idempotent operation
+        // @see https://forums.aws.amazon.com/thread.jspa?messageID=455154
+        return $this->doesFileExist($fileName, $bucket);
+    }
+
+    /**
+     * Checks if a file esists in the S3 bucket.
+     *
+     * @param string $fileName Fielname to check in the bucket. May include directories.
+     * @return bool if the file exists or not
+     */
+    public function doesFileExist($fileName, $bucket = false)
+    {
+        if (!$bucket) {
+            $bucket = $this->bucket;
+        }
+
+        try {
+            $result = $this->_client->doesObjectExist($bucket, $fileName);
+        } catch (\Exception $e){
+            return false;
+        }
+
+        return $result;
     }
 }
