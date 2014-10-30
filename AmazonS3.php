@@ -17,6 +17,7 @@ namespace ThePeach\yii2s3;
  *          'key' => 'AWS_ACCESS_KEY_ID',
  *          'secret' => 'AWS_SECRET_ACCESS_KEY',
  *          'bucket' => 'YOUR_BUCKET',
+ *          'region' => 'eu-west-1' // this is optional, but required if your bucket is not in US
  *     ],
  * ],
  * ~~~
@@ -33,6 +34,7 @@ class AmazonS3 extends \yii\base\Component
     public $bucket;
     public $key;
     public $secret;
+    public $region = null;
 
     private $_client;
 
@@ -40,10 +42,16 @@ class AmazonS3 extends \yii\base\Component
     {
         parent::init();
 
-        $this->_client = \Aws\S3\S3Client::factory([
+        $options = [
             'key' => $this->key,
-            'secret' => $this->secret,
-        ]);
+            'secret' => $this->secret
+        ];
+
+        if ($this->region !== null) {
+            $options['region'] = $this->region;
+        }
+
+        $this->_client = \Aws\S3\S3Client::factory($options);
     }
 
     /**
