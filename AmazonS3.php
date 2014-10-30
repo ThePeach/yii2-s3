@@ -80,6 +80,7 @@ class AmazonS3 extends \yii\base\Component
      * Deletes a file from the S3 bucket.
      *
      * @param string $fileName Filename to delete from the bucket. May include directories.
+     * @param bool $bucket Override configured bucket.
      * @return bool if the delete operation completed successfully.
      */
     public function deleteFile($fileName, $bucket = false)
@@ -107,6 +108,7 @@ class AmazonS3 extends \yii\base\Component
      * Checks if a file esists in the S3 bucket.
      *
      * @param string $fileName Fielname to check in the bucket. May include directories.
+     * @param bool $bucket Override configured bucket.
      * @return bool if the file exists or not
      */
     public function doesFileExist($fileName, $bucket = false)
