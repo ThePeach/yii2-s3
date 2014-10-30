@@ -1,5 +1,5 @@
 {
-    "name": "ThePeach/yii2-s3",
+    "name": "the-peach/yii2-s3",
     "type": "library",
     "description": "An Amazon S3Client wrapper as Yii2 component",
     "keywords": ["yii2-s3","yii2s3", "s3","yii2"],
