@@ -133,4 +133,31 @@ class AmazonS3 extends \yii\base\Component
 
         return $result;
     }
+
+    /**
+     * Copies an existing file to another file
+     *
+     * @param string $fromfileName the path of the source file name
+     * @param string $toFileName the path name of the new file name
+     * @param string $bucket Overrides configured bucket
+     * @return bool if the operation completed successfully
+     */
+    public function copyFile($fromFileName, $toFileName, $bucket = false)
+    {
+        if (!$bucket) {
+            $bucket = $this->bucket;
+        }
+
+        try {
+            $result = $this->_client->copyObject([
+                'Bucket' => $bucket,
+                'CopySource' => $bucket . DIRECTORY_SEPARATOR . $fileName,
+                'Key' => $toFileName
+            ])
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return $this->doesFileExist($toFileName, $bucket);
+    }
 }
