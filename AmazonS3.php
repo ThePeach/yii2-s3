@@ -140,7 +140,7 @@ class AmazonS3 extends \yii\base\Component
      * @param string $fromfileName the path of the source file name
      * @param string $toFileName the path name of the new file name
      * @param string $bucket Overrides configured bucket
-     * @return bool if the operation completed successfully
+     * @return string|null the new file path or null 
      */
     public function copyFile($fromFileName, $toFileName, $bucket = false)
     {
@@ -155,9 +155,9 @@ class AmazonS3 extends \yii\base\Component
                 'Key' => $toFileName
             ]);
         } catch (\Exception $e) {
-            return false;
+            return null;
         }
 
-        return $this->doesFileExist($toFileName, $bucket);
+        return ($this->doesFileExist($toFileName, $bucket)) ? $toFileName : null;
     }
 }
