@@ -153,7 +153,7 @@ class AmazonS3 extends \yii\base\Component
                 'Bucket' => $bucket,
                 'CopySource' => $bucket . DIRECTORY_SEPARATOR . $fileName,
                 'Key' => $toFileName
-            ])
+            ]);
         } catch (\Exception $e) {
             return false;
         }
