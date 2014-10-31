@@ -151,7 +151,7 @@ class AmazonS3 extends \yii\base\Component
         try {
             $result = $this->_client->copyObject([
                 'Bucket' => $bucket,
-                'CopySource' => $bucket . DIRECTORY_SEPARATOR . $fileName,
+                'CopySource' => $bucket . DIRECTORY_SEPARATOR . $fromFileName,
                 'Key' => $toFileName
             ]);
         } catch (\Exception $e) {
